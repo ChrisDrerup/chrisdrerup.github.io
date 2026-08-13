@@ -25,11 +25,11 @@ const imageSrc = image
   <div class="flex min-h-[180px] flex-col gap-5 sm:flex-row">
 
     {imageSrc && (
-      <div class="sm:w-40 sm:flex-shrink-0 sm:self-stretch">
+      <div class="w-[140px] flex-shrink-0 self-center">
         <img
           src={imageSrc}
           alt={`Image associated with publication ${number}`}
-          class="h-40 w-full rounded-md object-cover sm:h-full"
+          class="aspect-[210/297] w-full rounded-md bg-white object-contain"
         />
       </div>
     )}
