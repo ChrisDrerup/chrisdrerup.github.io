@@ -1,0 +1,74 @@
+---
+const {
+  number,
+  year,
+  journal,
+  volume,
+  pages,
+  doi,
+  url,
+  image,
+  note,
+} = Astro.props;
+
+const imageSrc = image
+  ? `${import.meta.env.BASE_URL}${image.replace(/^\/+/, "")}`
+  : null;
+---
+
+<a
+  href={url}
+  target="_blank"
+  rel="noopener noreferrer"
+  class="group block rounded-lg border border-base-300 bg-[#dce9dc] p-4 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md hover:border-primary/40"
+>
+  <div class="flex min-h-[180px] flex-col gap-5 sm:flex-row">
+
+    {imageSrc && (
+      <div class="sm:w-40 sm:flex-shrink-0 sm:self-stretch">
+        <img
+          src={imageSrc}
+          alt={`Image associated with publication ${number}`}
+          class="h-40 w-full rounded-md object-cover sm:h-full"
+        />
+      </div>
+    )}
+
+    <div class="min-w-0 flex flex-1 flex-col justify-center text-[15px] leading-relaxed">
+
+        <!-- Authors -->
+    <div>
+      <strong>{number})</strong>
+      <span class="font-normal">
+        <slot name="authors" />
+      </span>
+      <span class="font-normal"> ({year})</span>
+    </div>
+
+    <!-- Title -->
+    <div class="mt-1 group-hover:text-primary">
+      <slot name="title" />
+    </div>
+
+    <!-- Journal -->
+    <div class="mt-1">
+      <strong>{journal}</strong>{volume && ` ${volume}`}{pages && `, ${pages}`}.
+    </div>
+
+    <!-- DOI -->
+    {doi && (
+      <div class="mt-1">
+        DOI: {doi}
+      </div>
+    )}
+
+    <!-- Optional note -->
+    {note && (
+      <div class="mt-2 italic">
+        {note}
+      </div>
+    )}
+
+  </div>
+  </div>
+</a>

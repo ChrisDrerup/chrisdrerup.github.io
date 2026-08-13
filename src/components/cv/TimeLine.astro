@@ -1,5 +1,5 @@
 ---
-const { title, subtitle } = Astro.props;
+const { title, title2, subtitle, subtitleItalic, date } = Astro.props;
 ---
 
 <div class="flex">
@@ -7,11 +7,30 @@ const { title, subtitle } = Astro.props;
     <span class="w-4 h-4 bg-primary block rounded-full mt-1"></span>
     <span class="education__line bg-primary block h-full w-[2px] translate-x-[7px]"></span>
   </div>
-  <div class="experience__data bd-grid px-5">
-    <h3 class="font-semibold mb-1">{title}</h3>
-    <span class="font-light text-sm">{subtitle}</span>
+
+  <div class="experience__data bd-grid px-5 w-full">
+    
+    <!-- Top row: title/location on left, dates on right -->
+    <div class="grid grid-cols-[1fr_auto] gap-4 items-start">
+      <div>
+        <h3 class="font-semibold mb-1">{title}</h3>
+        {title2 && (
+          <h3 class="font-semibold mb-1">{title2}</h3>
+        )}
+        <span class="font-light text-sm">
+        {subtitle} <em>{subtitleItalic}</em>
+        </span>
+      </div>
+
+      <span class="font-light text-sm text-right whitespace-nowrap">
+        {date}
+      </span>
+    </div>
+
+    <!-- Full-width content underneath -->
     <p class="my-2 text-justify">
       <slot />
     </p>
+
   </div>
 </div>
