@@ -12,8 +12,10 @@ const {
   title = SITE_TITLE,
   description = SITE_DESCRIPTION,
   includeSidebar = true,
+  includeFooter = true,
   sideBarActiveItemID,
   ogType,
+  fullWidth = false,
 } = Astro.props;
 ---
 
@@ -29,11 +31,14 @@ const {
       <div class="drawer-content bg-base-100">
         <Header title={SITE_TITLE} />
         <div class="md:flex md:justify-center">
-          <main class="p-6 pt-10 lg:max-w-[900px] max-w-[100vw]">
+          <main class={fullWidth
+        ? "w-full max-w-none"
+        : "p-6 pt-10 lg:max-w-[900px] max-w-[100vw]"
+}>
             <slot />
           </main>
         </div>
-        <Footer />
+        {includeFooter && <Footer />}
       </div>
       {includeSidebar && <SideBar sideBarActiveItemID={sideBarActiveItemID} />}
     </div>

@@ -9,75 +9,120 @@ const posts = (await getCollection("blog")).sort((a, b) => b.data.pubDate.valueO
 const last_posts = posts.slice(0, 3);
 ---
 
-<BaseLayout sideBarActiveItemID="home">
-  <div class="pb-12 mt-5">
-    <div class="text-5xl font-bold">Dr Christian Drerup</div>
-    <div class="text-3xl py-3 font-bold">Behavioural and Visual Ecologist</div>
-    <div class="py-2">
-      <text class="text-lg">
-        I am a behavioural ecologist, investigating the behavioural and sensory ecology of animals, in particular invertebrates, in response to environmental and perceptual challenges.
-        <br><br>
-        My research is driven by my interest in how animals obtain sensory information in their environment and subsequently process and translate this information into behavioural strategies and physiological traits.
-      </text>
+<BaseLayout
+  title="Christian Drerup"
+  sideBarActiveItemID="home"
+  fullWidth={true}
+  includeFooter={false}
+>
+
+  <div class="relative min-h-screen overflow-hidden">
+
+    <!-- Background image -->
+    <video
+      id="hero-video"
+      class="absolute inset-0 h-full w-full object-cover"
+      autoplay
+      muted
+      loop
+      playsinline
+      poster="/Ocean_water.jpg"
+    >
+  <source src="/caustics_video.mp4" type="video/mp4" />
+</video>
+  <source src="/caustics_video.mp4" type="video/mp4" />
+</video>
+
+    <!-- Gradient overlay for readability -->
+    <div
+      class="absolute inset-0 bg-gradient-to-r from-black/60 via-black/60 to-black/10"
+    ></div>
+
+    <!-- Homepage content -->
+    <div class="relative z-10 min-h-screen flex items-center">
+      <div class="max-w-3xl px-8 md:px-12 py-16 text-white">
+
+        <h1 class="text-5xl md:text-7xl font-bold mb-6">
+          Dr Christian Drerup
+        </h1>
+
+        <p class="text-lg md:text-xl leading-relaxed mb-8">
+          I am a zoologist, investigating the behavioural and sensory ecology of animals, 
+          in particular invertebrates, in response to environmental and perceptual challenges.
+        </p>
+
+        <p class="text-lg md:text-xl leading-relaxed mb-8">
+          My research is driven by my interest in how animals obtain sensory information in their environment and subsequently 
+          process and translate this information into behavioural strategies and physiological traits.
+        </p>
+
+         <div class="mb-8 space-y-2 text-lg md:text-xl">
+
+        <p>
+          I am currently a Fellow by Examination at 
+          <a
+            href="https://www.magd.ox.ac.uk/people/dr-christian-drerup/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="font-semibold text-[#b68b2c] underline underline-offset-4 decoration-white/40 hover:decoration-white transition-colors"
+          >
+            Magdalen College
+          </a> 
+        </p>
+
+        <p>
+          and a Senior Research Fellow at the 
+          <a
+            href="YOUR_OXFORD_PROFILE_URL"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="font-semibold text-[#b68b2c] underline underline-offset-4 decoration-white/40 hover:decoration-white transition-colors"
+          >
+            Department of Biology
+          </a>
+        </p>
+
+        <p>
+          at the University of Oxford, UK.
+        </p>
+
+      </div>
+
+        <div class="flex flex-wrap gap-3">
+
+            <a
+              href="/cv/"
+              class="btn bg-transparent text-white border-white hover:bg-white hover:text-black transition-colors duration-300"
+            >
+              CV
+            </a>
+
+            <a
+              href="/research/"
+              class="btn bg-transparent text-white border-white hover:bg-white hover:text-black transition-colors duration-300"
+            >
+              Research
+            </a>
+
+            <a
+              href="/publications/"
+              class="btn bg-transparent text-white border-white hover:bg-white hover:text-black transition-colors duration-300"
+            >
+              Publications
+            </a>
+
+            <a
+              href="/photography/"
+              class="btn bg-transparent text-white border-white hover:bg-white hover:text-black transition-colors duration-300"
+            >
+              Underwater Photography
+            </a>
+
+          </div>
+
+      </div>
     </div>
-    <div class="py-2">
-      <text class="text-lg">
-        I am currently a <strong>Fellow by Examination at Magdalen College, University of Oxford</strong>,
-         with a research affiliation as a <strong>Senior Research Fellow at the Department of Biology, University of Oxford</strong>.
-        </text>
-    </div>
-    <div class="mt-8">
-      <a class="btn" href="https://twitter.com/manuelernestog" target="_blank"> Let's connect!</a>
-      <a href="https://github.com/manuelernestog/astrofy" target="_blank" class="btn btn-outline ml-5">
-        Get This template
-      </a>
-    </div>
+
   </div>
 
-  <div>
-    <div class="text-3xl w-full font-bold mb-2">My last projects {"</>"}</div>
-  </div>
-
-  <HorizontalCard
-    title="Demo Project 1"
-    img="/post_img.webp"
-    desc="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-    url="#"
-    badge="NEW"
-  />
-  <div class="divider my-0"></div>
-  <HorizontalCard
-    title="Demo Project 2"
-    img="/post_img.webp"
-    desc="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-    url="#"
-  />
-  <div class="divider my-0"></div>
-  <HorizontalCard
-    title="Demo Project 3"
-    img="/post_img.webp"
-    desc="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-    url="#"
-    badge="FOSS"
-  />
-
-  <div>
-    <div class="text-3xl w-full font-bold mb-5 mt-10">Latest from blog</div>
-  </div>
-
-  {
-    last_posts.map((post) => (
-      <>
-        <HorizontalCard
-          title={post.data.title}
-          img={post.data.heroImage}
-          desc={post.data.description}
-          url={"/blog/" + createSlug(post.data.title, post.slug)}
-          target="_self"
-          badge={post.data.badge}
-        />
-        <div class="divider my-0" />
-      </>
-    ))
-  }
 </BaseLayout>
