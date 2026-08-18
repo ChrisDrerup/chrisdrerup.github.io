@@ -1,0 +1,135 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { Image } from "astro:assets";
+
+const imageModules = import.meta.glob(
+  "../assets/photography/*.{jpg,jpeg,png,webp}",
+  {
+    eager: true,
+    import: "default"
+  }
+);
+
+const images = Object.entries(imageModules).map(([path, image]) => ({
+  path,
+  image
+}));
+
+// Shuffle the gallery on each build.
+for (let i = images.length - 1; i > 0; i--) {
+  const j = Math.floor(Math.random() * (i + 1));
+  [images[i], images[j]] = [images[j], images[i]];
+}
+---
+
+<BaseLayout
+  title="Underwater Photography"
+  sideBarActiveItemID="photography"
+  fullWidth={true}
+  includeFooter={false}
+>
+  <div class="min-h-screen bg-black text-white px-6 md:px-10 py-10">
+
+    <div class="mb-8">
+    <h1 class="text-5xl md:text-6xl font-bold">
+      My Underwater Photography
+    </h1>
+    </div>
+
+    <div class="columns-1 sm:columns-2 lg:columns-3 gap-4 space-y-4">
+        {images.map((item, index) => (
+        <button
+            type="button"
+            class="group relative block w-full overflow-hidden rounded-xl break-inside-avoid cursor-zoom-in"
+            data-gallery-index={index}
+            aria-label={`Open photograph ${index + 1}`}
+        >
+            <Image
+            src={item.image}
+            alt=""
+            class="w-full h-auto transition duration-500 group-hover:scale-[1.03]"
+            widths={[400, 600, 900]}
+            sizes="(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 100vw"
+            />
+
+            <div class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300"></div>
+        </button>
+        ))}
+    </div>
+
+    <!-- Lightbox -->
+    <div
+        id="lightbox"
+        class="fixed inset-0 z-50 hidden items-center justify-center bg-black/90 p-6"
+    >
+        <button
+        id="lightbox-close"
+        type="button"
+        class="absolute top-6 right-6 z-50 text-white text-4xl leading-none"
+        aria-label="Close image"
+        >
+        &times;
+        </button>
+
+        <img
+        id="lightbox-image"
+        src=""
+        alt=""
+        class="max-h-[90vh] max-w-[95vw] object-contain"
+        />
+    </div>
+</div>
+
+</BaseLayout>
+
+<script>
+  const galleryItems = Array.from(
+    document.querySelectorAll("[data-gallery-index]")
+  );
+
+  const lightbox = document.getElementById("lightbox");
+  const lightboxImage = document.getElementById("lightbox-image");
+  const lightboxClose = document.getElementById("lightbox-close");
+
+  if (
+    lightbox instanceof HTMLDivElement &&
+    lightboxImage instanceof HTMLImageElement &&
+    lightboxClose instanceof HTMLButtonElement
+  ) {
+    galleryItems.forEach((item) => {
+      item.addEventListener("click", () => {
+        const image = item.querySelector("img");
+
+        if (!(image instanceof HTMLImageElement)) return;
+
+        lightboxImage.src = image.currentSrc || image.src;
+        lightboxImage.alt = image.alt;
+
+        lightbox.classList.remove("hidden");
+        lightbox.classList.add("flex");
+
+        document.body.style.overflow = "hidden";
+      });
+    });
+
+    const closeLightbox = () => {
+      lightbox.classList.add("hidden");
+      lightbox.classList.remove("flex");
+      document.body.style.overflow = "";
+    };
+
+    lightboxClose.addEventListener("click", closeLightbox);
+
+    lightbox.addEventListener("click", (event) => {
+      if (event.target === lightbox) {
+        closeLightbox();
+      }
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        closeLightbox();
+      }
+    });
+  }
+</script>

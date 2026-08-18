@@ -15,10 +15,9 @@ const last_posts = posts.slice(0, 3);
   fullWidth={true}
   includeFooter={false}
 >
-
   <div class="relative min-h-screen overflow-hidden">
 
-    <!-- Background image -->
+    <!-- Background video -->
     <video
       id="hero-video"
       class="absolute inset-0 h-full w-full object-cover"
@@ -28,10 +27,8 @@ const last_posts = posts.slice(0, 3);
       playsinline
       poster="/Ocean_water.jpg"
     >
-  <source src="/caustics_video.mp4" type="video/mp4" />
-</video>
-  <source src="/caustics_video.mp4" type="video/mp4" />
-</video>
+      <source src="/caustics_video.mp4" type="video/mp4" />
+    </video>
 
     <!-- Gradient overlay for readability -->
     <div
@@ -47,19 +44,7 @@ const last_posts = posts.slice(0, 3);
         </h1>
 
         <p class="text-lg md:text-xl leading-relaxed mb-8">
-          I am a zoologist, investigating the behavioural and sensory ecology of animals, 
-          in particular invertebrates, in response to environmental and perceptual challenges.
-        </p>
-
-        <p class="text-lg md:text-xl leading-relaxed mb-8">
-          My research is driven by my interest in how animals obtain sensory information in their environment and subsequently 
-          process and translate this information into behavioural strategies and physiological traits.
-        </p>
-
-         <div class="mb-8 space-y-2 text-lg md:text-xl">
-
-        <p>
-          I am currently a Fellow by Examination at 
+          I am currently a Fellow by Examination at
           <a
             href="https://www.magd.ox.ac.uk/people/dr-christian-drerup/"
             target="_blank"
@@ -67,11 +52,8 @@ const last_posts = posts.slice(0, 3);
             class="font-semibold text-[#b68b2c] underline underline-offset-4 decoration-white/40 hover:decoration-white transition-colors"
           >
             Magdalen College
-          </a> 
-        </p>
-
-        <p>
-          and a Senior Research Fellow at the 
+          </a>
+          and a Senior Research Fellow at the
           <a
             href="YOUR_OXFORD_PROFILE_URL"
             target="_blank"
@@ -80,49 +62,57 @@ const last_posts = posts.slice(0, 3);
           >
             Department of Biology
           </a>
+          at the University of Oxford, UK. I completed a PhD in Zoology
+           at the University of Cambridge in 2024.
         </p>
 
-        <p>
-          at the University of Oxford, UK.
+        <p class="text-lg md:text-xl leading-relaxed mb-8">
+          My research specialises in understanding how animals perceive sensory information 
+          in their environment, how this information is processed and translated into behavioural 
+          traits and strategies, and how animals exploit perceptual constraints in the visual 
+          systems of other animals for their own survival. 
         </p>
 
-      </div>
+        <p class="text-lg md:text-xl leading-relaxed mb-8">
+          I am particularly interested in the ‘visual arms race’ between predators and prey, 
+          i.e. which adaptations animals have evolved to detect predators and prey, especially 
+          in perceptually challenging environments, and how animals use visual camouflage 
+          techniques to remain undetected and avoid predation.
+        </p>
 
+        <!-- Buttons -->
         <div class="flex flex-wrap gap-3">
+          <a
+            href="/cv/"
+            class="btn bg-transparent text-white border-white hover:bg-white hover:text-black transition-colors duration-300"
+          >
+            CV
+          </a>
 
-            <a
-              href="/cv/"
-              class="btn bg-transparent text-white border-white hover:bg-white hover:text-black transition-colors duration-300"
-            >
-              CV
-            </a>
+          <a
+            href="/research/"
+            class="btn bg-transparent text-white border-white hover:bg-white hover:text-black transition-colors duration-300"
+          >
+            Research
+          </a>
 
-            <a
-              href="/research/"
-              class="btn bg-transparent text-white border-white hover:bg-white hover:text-black transition-colors duration-300"
-            >
-              Research
-            </a>
+          <a
+            href="/publications/"
+            class="btn bg-transparent text-white border-white hover:bg-white hover:text-black transition-colors duration-300"
+          >
+            Publications
+          </a>
 
-            <a
-              href="/publications/"
-              class="btn bg-transparent text-white border-white hover:bg-white hover:text-black transition-colors duration-300"
-            >
-              Publications
-            </a>
-
-            <a
-              href="/photography/"
-              class="btn bg-transparent text-white border-white hover:bg-white hover:text-black transition-colors duration-300"
-            >
-              Underwater Photography
-            </a>
-
-          </div>
+          <a
+            href="/photography/"
+            class="btn bg-transparent text-white border-white hover:bg-white hover:text-black transition-colors duration-300"
+          >
+            Underwater Photography
+          </a>
+        </div>
 
       </div>
     </div>
 
   </div>
-
 </BaseLayout>
