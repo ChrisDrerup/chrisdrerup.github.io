@@ -9,6 +9,55 @@ import PublicationCard from "../components/publications/PublicationCard.astro";
     <div class="text-7xl w-full font-bold">Publications</div>
   </div>
 
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-10 my-10">
+
+  <div class="flex flex-col items-center">
+    <h2 class="text-xl font-bold mb-5">Publication type</h2>
+
+        <div
+          id="publication-type-chart"
+          class="relative w-44 h-44 rounded-full"
+        >
+          <div
+            class="absolute inset-5 rounded-full bg-base-100 flex items-center justify-center"
+          >
+            <div class="text-center">
+              <div id="publication-total" class="text-2xl font-bold">0</div>
+              <div class="text-xs">publications</div>
+            </div>
+          </div>
+        </div>
+
+        <div id="publication-type-legend" class="mt-5 flex flex-col gap-2 text-sm"></div>
+      </div>
+
+
+      <div class="flex flex-col items-center">
+        <h2 class="text-xl font-bold mb-5">Study systems</h2>
+
+        <div
+          id="animal-chart"
+          class="relative w-44 h-44 rounded-full"
+        >
+          <div
+            class="absolute inset-5 rounded-full bg-base-100 flex items-center justify-center"
+          >
+            <div class="text-center">
+              <div id="animal-total" class="text-2xl font-bold">0</div>
+              <div class="text-xs">study systems</div>
+            </div>
+          </div>
+        </div>
+
+        <div
+          id="animal-legend"
+          class="mt-5 grid grid-cols-2 gap-x-5 gap-y-2 text-sm"
+        ></div>
+      </div>
+
+    </div>
+
+
     <div class="flex items-center gap-4 my-8">
     <div class="h-px flex-1 bg-base-content/30"></div>
 
@@ -24,6 +73,8 @@ import PublicationCard from "../components/publications/PublicationCard.astro";
     <PublicationCard
   number="22"
   year="In press"
+  type="Review"
+  animal={["Cephalopod"]}
   journal="Aquatic Conservation: Marine and Freshwater Ecosystems"
   volume=""
   pages=""
@@ -62,6 +113,8 @@ import PublicationCard from "../components/publications/PublicationCard.astro";
 <PublicationCard
   number="21"
   year="2026"
+  type="Research"
+  animal={["Insect"]}
   journal="Ecology and Evolution"
   volume="16"
   pages="e74061"
@@ -98,6 +151,8 @@ import PublicationCard from "../components/publications/PublicationCard.astro";
 <PublicationCard
   number="20"
   year="2025"
+  type="Research"
+  animal={["Fish"]}
   journal="Proceedings of the Royal Society B: Biological Sciences"
   volume="292"
   pages="20252215"
@@ -119,6 +174,8 @@ import PublicationCard from "../components/publications/PublicationCard.astro";
 <PublicationCard
   number="19"
   year="2025"
+  type="Review"
+  animal={["Fish"]}
   journal="Journal of Fish Biology"
   volume="107"
   pages="1852-1867"
@@ -140,6 +197,8 @@ import PublicationCard from "../components/publications/PublicationCard.astro";
 <PublicationCard
   number="18"
   year="2025"
+  type="Research"
+  animal={["Cephalopod"]}
   journal="Journal of Experimental Biology"
   volume="228"
   pages="jeb249713"
@@ -160,6 +219,8 @@ import PublicationCard from "../components/publications/PublicationCard.astro";
 <PublicationCard
   number="17"
   year="2025"
+  type="Review"
+  animal={["Cephalopod"]}
   journal="Trends in Ecology & Evolution"
   volume="40"
   pages="740-748"
@@ -180,6 +241,8 @@ import PublicationCard from "../components/publications/PublicationCard.astro";
 <PublicationCard
   number="16"
   year="2025"
+  type="Research"
+  animal={["Fish"]}
   journal="Behavioral Ecology"
   volume="36"
   pages="araf059"
@@ -201,6 +264,8 @@ import PublicationCard from "../components/publications/PublicationCard.astro";
 <PublicationCard
   number="15"
   year="2025"
+  type="Research"
+  animal={["Crustacean"]}
   journal="Ecology and Evolution"
   volume="15"
   pages="e71426"
@@ -235,6 +300,8 @@ import PublicationCard from "../components/publications/PublicationCard.astro";
 <PublicationCard
   number="14"
   year="2024"
+  type="Research"
+  animal={["Cephalopod"]}
   journal="Current Biology"
   volume="34"
   pages="3258-3264"
@@ -255,6 +322,8 @@ import PublicationCard from "../components/publications/PublicationCard.astro";
 <PublicationCard
   number="13"
   year="2024"
+  type="Research"
+  animal={["Cephalopod", "Crustacean"]}
   journal="Ethology"
   volume="130"
   pages="e13432"
@@ -289,6 +358,8 @@ import PublicationCard from "../components/publications/PublicationCard.astro";
 <PublicationCard
   number="12"
   year="2023"
+  type="Research"
+  animal={["Fish"]}
   journal="Current Biology"
   volume="33"
   pages="R801-R802"
@@ -310,6 +381,8 @@ import PublicationCard from "../components/publications/PublicationCard.astro";
 <PublicationCard
   number="11"
   year="2023"
+  type="Research"
+  animal={["Cephalopod"]}
   journal="Animal Behaviour"
   volume="202"
   pages="59-72"
@@ -330,6 +403,8 @@ import PublicationCard from "../components/publications/PublicationCard.astro";
 <PublicationCard
   number="10"
   year="2023"
+  type="Research"
+  animal={["Cephalopod"]}
   journal="Fisheries Research"
   volume="263"
   pages="106688"
@@ -365,6 +440,8 @@ import PublicationCard from "../components/publications/PublicationCard.astro";
 <PublicationCard
   number="9"
   year="2022"
+  type="Review"
+  animal={["Cephalopod"]}
   journal="ICES Journal of Marine Science"
   volume="79"
   pages="2579-2596"
@@ -389,6 +466,8 @@ import PublicationCard from "../components/publications/PublicationCard.astro";
 <PublicationCard
   number="8"
   year="2022"
+  type="Review"
+  animal={["Cephalopod"]}
   journal="Molluscan Research"
   volume="42"
   pages="185-204"
@@ -408,6 +487,8 @@ import PublicationCard from "../components/publications/PublicationCard.astro";
 <PublicationCard
   number="7"
   year="2022"
+  type="Research"
+  animal={["Cephalopod", "Crustacean"]}
   journal="Science Advances"
   volume="8"
   pages="eabq2770"
@@ -429,6 +510,8 @@ import PublicationCard from "../components/publications/PublicationCard.astro";
 <PublicationCard
   number="6"
   year="2022"
+  type="Research"
+  animal={["Cephalopod"]}
   journal="ICES Journal of Marine Science"
   volume="79"
   pages="1918-1930"
@@ -465,6 +548,8 @@ import PublicationCard from "../components/publications/PublicationCard.astro";
 <PublicationCard
   number="5"
   year="2021"
+  type="Research"
+  animal={["Cephalopod"]}
   journal="Ethology"
   volume="127"
   pages="1101-1108"
@@ -485,6 +570,8 @@ import PublicationCard from "../components/publications/PublicationCard.astro";
 <PublicationCard
   number="4"
   year="2021"
+  type="Research"
+  animal={["Cephalopod"]}
   journal="Marine Biodiversity"
   volume="51"
   pages="57"
@@ -506,6 +593,8 @@ import PublicationCard from "../components/publications/PublicationCard.astro";
 <PublicationCard
   number="3"
   year="2021"
+  type="Research"
+  animal={["Cephalopod"]}
   journal="Molluscan Research"
   volume="41"
   pages="87-91"
@@ -525,6 +614,8 @@ import PublicationCard from "../components/publications/PublicationCard.astro";
 <PublicationCard
   number="2"
   year="2021"
+  type="Research"
+  animal={["Crustacean"]}
   journal="Journal of Experimental Biology"
   volume="224"
   pages="jeb229898"
@@ -559,6 +650,8 @@ import PublicationCard from "../components/publications/PublicationCard.astro";
 <PublicationCard
   number="1"
   year="2020"
+  type="Research"
+  animal={["Cephalopod"]}
   journal="Journal of Experimental Marine Biology and Ecology"
   volume="530-531"
   pages="151442"
@@ -577,3 +670,175 @@ import PublicationCard from "../components/publications/PublicationCard.astro";
 </PublicationCard>
 
 </BaseLayout>
+
+<script>
+  const typeBadges = Array.from(
+    document.querySelectorAll("[data-publication-type]")
+  );
+
+  const animalBadges = Array.from(
+    document.querySelectorAll("[data-animal]")
+  );
+
+  const typeCounts = {};
+  const animalCounts = {};
+
+  // Count publication types
+  typeBadges.forEach((badge) => {
+    const type = badge.getAttribute("data-publication-type");
+
+    if (type) {
+      typeCounts[type] = (typeCounts[type] || 0) + 1;
+    }
+  });
+
+  // Count animal groups
+  animalBadges.forEach((badge) => {
+    const animal = badge.getAttribute("data-animal");
+
+    if (animal) {
+      animalCounts[animal] = (animalCounts[animal] || 0) + 1;
+    }
+  });
+
+  const typeChart = document.getElementById("publication-type-chart");
+  const animalChart = document.getElementById("animal-chart");
+
+  const typeLegend = document.getElementById("publication-type-legend");
+  const animalLegend = document.getElementById("animal-legend");
+
+  const publicationTotal = document.getElementById("publication-total");
+  const animalTotal = document.getElementById("animal-total");
+
+  const typeColors = {
+    "Research": "#457B9D",
+    "Review": "#E76F51",
+  };
+
+  const animalColors = {
+    "Cephalopod": "#E76F51",
+    "Fish": "#2A9D8F",
+    "Crustacean": "#457B9D",
+    "Insect": "#E9C46A",
+  };
+
+  // -----------------------
+// Publication type chart
+// -----------------------
+
+const totalTypes = Object.values(typeCounts).reduce(
+  (sum, count) => sum + count,
+  0
+);
+
+const typeEntries = Object.entries(typeCounts);
+
+const researchCount = typeCounts["Research"] || 0;
+const reviewCount = typeCounts["Review"] || 0;
+
+const researchPercent = (researchCount / totalTypes) * 100;
+const reviewPercent = (reviewCount / totalTypes) * 100;
+
+const gap = 0.8;
+
+const researchEnd = Math.max(0, researchPercent - gap);
+
+const typeGradient = `
+  #457B9D 0% ${researchEnd}%,
+  #FFFFFF ${researchEnd}% ${researchPercent}%,
+  #E76F51 ${researchPercent}% ${Math.max(researchPercent, 100 - gap)}%,
+  #FFFFFF ${Math.max(researchPercent, 100 - gap)}% 100%
+`;
+
+if (typeChart) {
+  typeChart.style.background = `conic-gradient(${typeGradient})`;
+}
+
+if (publicationTotal) {
+  publicationTotal.textContent = totalTypes.toString();
+}
+
+if (typeLegend) {
+  typeLegend.innerHTML = "";
+
+  typeEntries.forEach(([type, count]) => {
+    const row = document.createElement("div");
+    row.className = "flex items-center gap-2";
+
+    const dot = document.createElement("span");
+    dot.className = "w-3 h-3 rounded-full";
+
+    if (type === "Research") {
+      dot.style.backgroundColor = "#457B9D";
+    } else if (type === "Review") {
+      dot.style.backgroundColor = "#E76F51";
+    } else {
+      dot.style.backgroundColor = "#999999";
+    }
+
+    const label = document.createElement("span");
+    label.textContent = `${type} (${count})`;
+
+    row.appendChild(dot);
+    row.appendChild(label);
+    typeLegend.appendChild(row);
+  });
+}
+
+  // -----------------------
+  // Animal chart
+  // -----------------------
+
+  const totalAnimals = Object.values(animalCounts).reduce(
+    (sum, count) => sum + count,
+    0
+  );
+
+  const totalAnimalClasses = Object.keys(animalCounts).length;
+
+  let animalPosition = 0;
+
+  const animalSegments = Object.entries(animalCounts).map(
+    ([animal, count]) => {
+      const start = animalPosition;
+      const percent = (count / totalAnimals) * 100;
+      animalPosition += percent;
+
+      const gap = 0.8;
+
+      return [
+        `${animalColors[animal] || "#999999"} ${start}% ${Math.max(start, animalPosition - gap)}%`,
+        `#FFFFFF ${Math.max(start, animalPosition - gap)}% ${animalPosition}%`
+      ].join(", ");
+    }
+  );
+
+  if (animalChart) {
+    animalChart.style.background =
+      `conic-gradient(${animalSegments.join(", ")})`;
+  }
+
+  if (animalTotal) {
+    animalTotal.textContent = totalAnimalClasses.toString();
+  }
+
+  if (animalLegend) {
+    Object.entries(animalCounts).forEach(([animal, count]) => {
+      const row = document.createElement("div");
+      row.className = "flex items-center gap-2";
+
+      const dot = document.createElement("span");
+      dot.className = "w-3 h-3 rounded-full";
+
+      dot.style.backgroundColor =
+        animalColors[animal] || "#999999";
+
+      const label = document.createElement("span");
+      label.textContent = `${animal} (${count})`;
+
+      row.appendChild(dot);
+      row.appendChild(label);
+      animalLegend.appendChild(row);
+    });
+  }
+</script>

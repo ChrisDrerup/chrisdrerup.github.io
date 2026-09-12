@@ -2,6 +2,8 @@
 const {
   number,
   year,
+  type,
+  animal,
   journal,
   volume,
   pages,
@@ -61,6 +63,28 @@ const imageSrc = image
         DOI: {doi}
       </div>
     )}
+
+    <div class="mt-2 flex flex-wrap gap-2">
+
+      {type && (
+        <span
+          class="badge badge-sm bg-[#D6AD4B] text-black border-none font-semibold"
+          data-publication-type={type}
+        >
+          {type}
+        </span>
+      )}
+
+      {animal && animal.map((animalType) => (
+        <span 
+          class="badge badge-sm bg-[#8ED1FC] text-black border-none font-semibold"
+          data-animal={animalType}
+        >
+          {animalType}
+        </span>
+      ))}
+
+    </div>
 
     <!-- Optional note -->
     {note && (
