@@ -5,7 +5,7 @@ import PublicationCard from "../components/publications/PublicationCard.astro";
 
 <BaseLayout title="Publications" sideBarActiveItemID="publications">
 
-  <div class="mb-5">
+  <div class="mb-5 text-center">
     <div class="text-7xl w-full font-bold">Publications</div>
   </div>
 
@@ -68,35 +68,32 @@ import PublicationCard from "../components/publications/PublicationCard.astro";
     <div class="h-px flex-1 bg-base-content/30"></div>
     </div>
 
-  <div class="grid gap-4 mb-10">
+          <div class="grid gap-4 mb-10">
 
     <PublicationCard
-  number="22"
-  year="In press"
-  type="Review"
-  animal={["Cephalopod"]}
-  journal="Aquatic Conservation: Marine and Freshwater Ecosystems"
-  volume=""
-  pages=""
-  doi=""
-  url=""
-  image="/publications/paper_inpress.jpg"
->
-  <Fragment slot="authors">
-    Barrett C.J., Alfaro-Cordova E., Alfaro-Shigueto J., Allock L., Allen A., Almansa E., 
-    Bentes L., Braga R., Brazier A., Cabanellas-Reboredo M., Compaire J.C., Cooke G.M., 
-    Doubleday Z., 
-    <strong>Drerup C.</strong>, 
-    Hernández-Urcera J., Holdgate A., Markaida U., Mangel J.C., van der Molen S.V., 
-    Moustahfid H., Ortiz N., Perales-Raya C., Roland-Wong N., Hua Q.Q.H., Pierce G.J., 
-    Piló D., Rangel M., Rosa R., Roura A., Sajikumar K.K., Sajikumar G., 
-    Vossen, K. & Oesterwind D.
-  </Fragment>
+      number="23"
+      year="In press"
+      type="Research"
+      animal={["Cephalopod"]}
+      journal="Marine and Freshwater Behaviour and Physiology"
+      volume=""
+      pages=""
+      doi=""
+      url=""
+      image="/publications/paper_inpress.jpg"
+    >
+      <Fragment slot="authors">
+        Gorden D., 
+        <strong>Drerup C.</strong> 
+         & Cooke G.M.
+      </Fragment>
 
-  <Fragment slot="title">
-    Octopus conservation: A global review of methods to ameliorate fishing mortality.
-  </Fragment>
-</PublicationCard>
+      <Fragment slot="title">
+         Population-level left-side bias during male-male contests in three species of wild cuttlefish.
+      </Fragment>
+    </PublicationCard>
+
+  <div class="grid gap-4 mb-10">
 
   <div class="flex items-center gap-4 my-8">
     <div class="h-px flex-1 bg-base-content/30"></div>
@@ -107,6 +104,36 @@ import PublicationCard from "../components/publications/PublicationCard.astro";
 
     <div class="h-px flex-1 bg-base-content/30"></div>
     </div>
+
+      <div class="grid gap-4 mb-10">
+
+    <PublicationCard
+      number="22"
+      year="2026"
+      type="Review"
+      animal={["Cephalopod"]}
+      journal="Aquatic Conservation: Marine and Freshwater Ecosystems"
+      volume="36"
+      pages="e70449"
+      doi="10.1002/aqc.70449"
+      url="https://doi.org/10.1002/aqc.70449"
+      image="/publications/paper_22.jpg"
+    >
+      <Fragment slot="authors">
+        Barrett C.J., Alfaro-Cordova E., Alfaro-Shigueto J., Allock L., Allen A., Almansa E., 
+        Bentes L., Braga R., Brazier A., Cabanellas-Reboredo M., Compaire J.C., Cooke G.M., 
+        Doubleday Z., 
+        <strong>Drerup C.</strong>, 
+        Hernández-Urcera J., Holdgate A., Markaida U., Mangel J.C., van der Molen S.V., 
+        Moustahfid H., Ortiz N., Perales-Raya C., Roland-Wong N., Hua Q.Q.H., Pierce G.J., 
+        Piló D., Rangel M., Rosa R., Roura A., Sajikumar K.K., Sajikumar G., 
+        Vossen, K. & Oesterwind D.
+      </Fragment>
+
+      <Fragment slot="title">
+         Octopus conservation: A global review of methods to ameliorate fishing mortality.
+      </Fragment>
+    </PublicationCard>
 
   <div class="grid gap-4 mb-10">
 

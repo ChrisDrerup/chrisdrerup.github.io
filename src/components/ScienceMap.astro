@@ -1,0 +1,1065 @@
+---
+---
+
+<div class="w-full space-y-12">
+
+  <!-- Legend -->
+  <div class="flex flex-wrap justify-center gap-6 text-sm mb-4">
+    <div class="flex items-center gap-2">
+        <span class="w-3 h-3 rounded-full bg-[#D6AD4B]"></span>
+        <span>Academic positions & education</span>
+    </div>
+
+    <div class="flex items-center gap-2">
+        <span class="w-3 h-3 rounded-full bg-[#5FA777]"></span>
+        <span>Lab-/ Fieldwork</span>
+    </div>
+
+    <div class="flex items-center gap-2">
+        <span class="w-3 h-3 rounded-full bg-[#7E57C2]"></span>
+        <span>Internships</span>
+    </div>
+
+    <div class="flex items-center gap-2">
+        <span class="w-3 h-3 rounded-full bg-[#E76F51]"></span>
+        <span>Major conferences</span>
+    </div>
+  </div>
+
+
+  <!-- WORLD MAP -->
+  <div>
+
+    <div class="relative">
+      <svg
+        id="world-map"
+        viewBox="0 0 1200 650"
+        class="w-full h-auto"
+        aria-label="World map showing universities, institutions and fieldwork locations"
+      ></svg>
+
+      <div
+        id="world-popup"
+        class="absolute hidden z-10 rounded-lg bg-[#1C4242] px-5 py-4 text-white shadow-lg max-w-[320px]"
+      >
+        <div
+          id="world-popup-institution"
+          class="font-bold text-lg"
+        ></div>
+
+        <div
+          id="world-popup-position"
+          class="mt-2 text-sm"
+        ></div>
+
+        <div
+          id="world-popup-dates"
+          class="mt-2 text-sm opacity-75"
+        ></div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- EUROPE MAP -->
+  <div>
+    <h2 class="text-2xl font-bold mb-4 text-center">
+      European close-up
+    </h2>
+
+    <div class="relative">
+      <svg
+        id="europe-map"
+        viewBox="0 0 1200 700"
+        class="w-full h-auto"
+        aria-label="Map of Europe showing universities, institutions and fieldwork locations"
+      ></svg>
+
+      <div
+        id="europe-popup"
+        class="absolute hidden z-10 rounded-lg bg-[#1C4242] px-5 py-4 text-white shadow-lg max-w-[320px]"
+      >
+        <div
+          id="europe-popup-institution"
+          class="font-bold text-lg"
+        ></div>
+
+        <div
+          id="europe-popup-position"
+          class="mt-2 text-sm"
+        ></div>
+
+        <div
+          id="europe-popup-dates"
+          class="mt-2 text-sm opacity-75"
+        ></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+<script>
+  import * as d3 from "d3";
+  import { feature } from "topojson-client";
+  import world from "../data/countries-50m.json";
+
+
+  /*
+   * ==========================================================
+   * LOCATIONS
+   * ==========================================================
+   *
+   * Add every university, institution and fieldwork location here.
+   *
+   * lat/lon are used only to position the dot on the map.
+   * They are never displayed.
+   *
+   * category:
+   *   "academic"  = gold
+   *   "fieldwork" = green
+   */
+
+  const locations = [
+
+    {
+      lat: 51.7520,
+      lon: -1.2577,
+      institution: "University of Oxford",
+      position: [
+        "Fellow by Examination, Magdalen College",
+        "Senior Research Fellow, Department of Biology",
+      ],
+      dates: "04/2026 – present",
+      category: "academic",
+    },
+
+    {
+      lat: 52.2053,
+      lon: 0.1218,
+      institution: "University of Cambridge",
+      position: [
+        "PhD Zoology (10/2020 – 06/2024)",
+        "Postdoctoral Research Assistant (06/2024 – 02/2025)",
+      ],
+      dates: "10/2020 – 02/2025",
+      category: "academic",
+    },
+
+    {
+      lat: 54.7753,
+      lon: -1.5849,
+      institution: "Durham University",
+      position: "Postdoctoral Research Associate",
+      dates: "02/2025 – 03/2026",
+      category: "academic",
+    },
+
+    {
+      lat: 54.33889,
+      lon: 10.12250,
+      institution: "Kiel University",
+      position: "B.Sc. Biology",
+      dates: "10/2013 – 07/2017",
+      category: "academic",
+    },
+
+    {
+      lat: 37.04510,
+      lon: -7.97200,
+      institution: "University of Algarve",
+      position: "M.Sc. Marine Biology",
+      dates: "07/2017 – 12/2019",
+      category: "academic",
+    },
+
+    {
+      lat: 49.7913,
+      lon: 9.9534,
+      institution: "University of Würzburg",
+      position: "Research Assistant",
+      dates: "12/2019 – 08/2020",
+      category: "academic",
+    },
+
+    {
+      lat: 12.1696,
+      lon: -68.9900,
+      institution: "Carmabi",
+      position: "Fieldwork on squid behaviour",
+      dates: "03/2022 - 05/2022",
+      category: "fieldwork",
+    },
+
+    {
+      lat: 10.358,
+      lon: 104.3199,
+      institution: "Marine Conservation Cambodia",
+      position: "Internship on seahorse conservation",
+      dates: "11/2015 - 03/2016",
+      category: "internship",
+    },
+
+    {
+      lat: 9.7867,
+      lon: 100.0045,
+      institution: "CoreSEA Thailand",
+      position: "Marine Biology Internship",
+      dates: "10/2015 - 11/2015",
+      category: "internship",
+    },
+
+    {
+      lat: 45.2231,
+      lon: 12.2840,
+      institution: "Chioggia (Umberto D'Ancona Hydrobiological Station)",
+      position: "Internship on sexual selection in fish",
+      dates: "07/2017 - 08/2017",
+      category: "internship",
+    },
+
+    {
+      lat: 26.2516,
+      lon: 127.7676,
+      institution: "University of the Ryukyus",
+      position: "Internship on squid mating behaviour",
+      dates: "07/2018 - 09/2018",
+      category: "internship",
+    },
+
+    {
+      lat: 26.2516,
+      lon: 127.7676,
+      institution: "University of the Ryukyus",
+      position: "Internship on squid mating behaviour",
+      dates: "07/2018 - 09/2018",
+      category: "internship",
+    },
+
+    {
+      lat: 26.5096,
+      lon: 127.8703,
+      institution: "Okinawa Institute of Science and Technology",
+      position: "Fieldwork on bobtail squid behaviour",
+      dates: "03/2019 - 05/2019",
+      category: "fieldwork",
+    },
+
+    {
+      lat: 51.4594,
+      lon: -2.0067,
+      institution: "University of Bristol",
+      position: "Internship on polarization vision in crustaceans",
+      dates: "10/2018 - 12/2018",
+      category: "internship",
+    },
+
+    {
+      lat: 50.3642,
+      lon: -4.1397,
+      institution: "Marine Biological Association",
+      position: "Lab work on cuttlefish behaviour",
+      dates: "04/2021 - 12/2021",
+      category: "fieldwork",
+    },
+
+    {
+      lat: 42.7326,
+      lon: 10.1544,
+      institution: "Hydra Fieldstation, Elba",
+      position: "Fieldwork on bobtail squid behaviour",
+      dates: "05/2019 - 06/2019",
+      category: "fieldwork",
+    },
+
+    {
+      lat: 45.4768,
+      lon: 9.2339,
+      institution: "University of Milan",
+      position: "Lab work on mosquito pupae behaviour",
+      dates: "11/2025 - 12/2025",
+      category: "fieldwork",
+    },
+
+    {
+      lat: 53.4074,
+      lon: -2.9618,
+      institution: "University of Liverpool",
+      position: "Lab work on mosquito pupae behaviour",
+      dates: "07/2025 - 07/2025",
+      category: "fieldwork",
+    },
+
+
+    /*
+     * ========================================================
+     * FIELDWORK EXAMPLES
+     * ========================================================
+     *
+     * Replace these with your real fieldwork locations.
+     */
+
+    // {
+    //   lat: 12.1696,
+    //   lon: -68.9900,
+    //   institution: "Curaçao",
+    //   position: "Fieldwork",
+    //   dates: "2024",
+    //   category: "fieldwork",
+    // },
+
+    {
+      lat: 52.0380,
+      lon: 8.4893,
+      institution: "Behaviour 2023",
+      position: "University of Bielefeld",
+      dates: "08/2023",
+      category: "conference",
+    },
+
+    {
+      lat: 53.2240,
+      lon: -4.1430,
+      institution: "ASAB Spring Meeting 2023",
+      position: "Bangor University",
+      dates: "08/2023",
+      category: "conference",
+    },
+
+    {
+      lat: 55.9552,
+      lon: -3.1965,
+      institution: "ASAB Winter Meeting 2023 & 2025",
+      position: "Edinburgh",
+      dates: "12/2023 & 12/2025",
+      category: "conference",
+    },
+
+    {
+      lat: 59.8448,
+      lon: 23.2486,
+      institution: "Visionarium XXI",
+      position: "Tvärminne",
+      dates: "10/2023",
+      category: "conference",
+    },
+
+    {
+      lat: 41.5270,
+      lon: -70.6723,
+      institution: "Cephalopod Neuroscience 2024",
+      position: "Woods Hole",
+      dates: "04/2024",
+      category: "conference",
+    },
+
+    {
+      lat: 45.0311,
+      lon: 7.6660,
+      institution: "ISBE 2026",
+      position: "Turin",
+      dates: "07/2026",
+      category: "conference",
+    },
+
+    {
+      lat: 51.9619,
+      lon: 7.6236,
+      institution: "DZG Annual Meeting 2026",
+      position: "Münster",
+      dates: "09/2026",
+      category: "conference",
+    },
+
+  ];
+
+
+  /*
+   * ==========================================================
+   * COLOURS
+   * ==========================================================
+   */
+
+  const categoryColors = {
+    academic: "#D6AD4B",
+    fieldwork: "#5FA777",
+    internship: "#7E57C2",
+    conference: "#E76F51",
+  };
+
+
+  /*
+   * ==========================================================
+   * HELPER FUNCTIONS
+   * ==========================================================
+   */
+
+  function getPositions(location) {
+    return Array.isArray(location.position)
+      ? location.position
+      : [location.position];
+  }
+
+
+  function fillPopup(
+    location,
+    institutionElement,
+    positionElement,
+    datesElement
+  ) {
+
+    institutionElement.textContent =
+      location.institution;
+
+    positionElement.innerHTML = "";
+
+    getPositions(location).forEach((position) => {
+
+      const line = document.createElement("div");
+
+      line.textContent = position;
+
+      line.className = "mt-1";
+
+      positionElement.appendChild(line);
+
+    });
+
+    datesElement.textContent =
+      location.dates;
+  }
+
+
+  /*
+   * ==========================================================
+   * WORLD MAP
+   * ==========================================================
+   */
+
+  const worldSvg = d3.select("#world-map");
+
+  const worldWidth = 1200;
+  const worldHeight = 650;
+
+
+  const worldProjection = d3
+    .geoNaturalEarth1()
+    .fitExtent(
+      [
+        [20, 20],
+        [1180, 630],
+      ],
+      {
+        type: "Sphere",
+      }
+    );
+
+
+  const worldPath =
+    d3.geoPath(worldProjection);
+
+
+  const worldCountries =
+    feature(
+      world,
+      world.objects.countries
+    );
+
+
+  /*
+   * Draw countries
+   */
+
+  worldSvg
+    .append("path")
+    .datum(worldCountries)
+    .attr("d", worldPath)
+    .attr("fill", "#E8E8E8")
+    .attr("stroke", "#FFFFFF")
+    .attr("stroke-width", 0.7);
+
+
+  /*
+   * Convert geographic coordinates
+   * into screen coordinates.
+   */
+
+  const worldPoints = locations
+    .map((location) => ({
+      ...location,
+
+      mapPosition:
+        worldProjection([
+          location.lon,
+          location.lat,
+        ]),
+    }))
+    .filter(
+      (location) =>
+        location.mapPosition
+    );
+
+
+  const worldPopup =
+    document.getElementById(
+      "world-popup"
+    );
+
+  const worldPopupInstitution =
+    document.getElementById(
+      "world-popup-institution"
+    );
+
+  const worldPopupPosition =
+    document.getElementById(
+      "world-popup-position"
+    );
+
+  const worldPopupDates =
+    document.getElementById(
+      "world-popup-dates"
+    );
+
+
+  function showWorldPopup(location) {
+
+    if (
+      !worldPopup ||
+      !worldPopupInstitution ||
+      !worldPopupPosition ||
+      !worldPopupDates ||
+      !location.mapPosition
+    ) {
+      return;
+    }
+
+
+    fillPopup(
+      location,
+      worldPopupInstitution,
+      worldPopupPosition,
+      worldPopupDates
+    );
+
+
+    worldPopup.classList.remove(
+      "hidden"
+    );
+
+
+    const svgElement =
+      document.getElementById(
+        "world-map"
+      );
+
+
+    if (
+      !(svgElement instanceof SVGSVGElement)
+    ) {
+      return;
+    }
+
+
+    const rect =
+      svgElement.getBoundingClientRect();
+
+
+    const container =
+      svgElement.parentElement?.getBoundingClientRect();
+
+
+    if (!container) {
+      return;
+    }
+
+
+    const scaleX =
+      rect.width / worldWidth;
+
+
+    const scaleY =
+      rect.height / worldHeight;
+
+
+    let x =
+      location.mapPosition[0] *
+        scaleX +
+      15;
+
+
+    let y =
+      location.mapPosition[1] *
+        scaleY -
+      worldPopup.offsetHeight -
+      15;
+
+
+    x = Math.max(
+      10,
+      Math.min(
+        x,
+        container.width -
+          worldPopup.offsetWidth -
+          10
+      )
+    );
+
+
+    y = Math.max(
+      10,
+      Math.min(
+        y,
+        container.height -
+          worldPopup.offsetHeight -
+          10
+      )
+    );
+
+
+    worldPopup.style.left =
+      `${x}px`;
+
+    worldPopup.style.top =
+      `${y}px`;
+  }
+
+
+  /*
+   * Draw world map dots
+   */
+
+  worldPoints.forEach(
+    (location) => {
+
+      const [x, y] =
+        location.mapPosition;
+
+
+      worldSvg
+        .append("circle")
+        .attr("cx", x)
+        .attr("cy", y)
+        .attr("r", 8)
+        .attr(
+          "fill",
+          categoryColors[
+            location.category
+          ] || "#D6AD4B"
+        )
+        .attr(
+          "stroke",
+          "#FFFFFF"
+        )
+        .attr(
+          "stroke-width",
+          2
+        )
+        .style(
+          "cursor",
+          "pointer"
+        )
+
+
+        /*
+         * Hover
+         */
+
+        .on(
+          "mouseenter",
+          function () {
+
+            d3.select(this)
+              .transition()
+              .duration(150)
+              .attr("r", 11);
+
+            showWorldPopup(
+              location
+            );
+
+          }
+        )
+
+
+        /*
+         * Leave
+         */
+
+        .on(
+          "mouseleave",
+          function () {
+
+            d3.select(this)
+              .transition()
+              .duration(150)
+              .attr("r", 8);
+
+          }
+        )
+
+
+        /*
+         * Click
+         */
+
+        .on(
+          "click",
+          function (event) {
+
+            event.stopPropagation();
+
+            showWorldPopup(
+              location
+            );
+
+          }
+        );
+
+    }
+  );
+
+
+  /*
+   * Click the map to close popup.
+   */
+
+  worldSvg.on(
+    "click",
+    () => {
+
+      worldPopup?.classList.add(
+        "hidden"
+      );
+
+      worldSvg
+        .selectAll("circle")
+        .attr("r", 8);
+
+    }
+  );
+
+
+  /*
+   * ==========================================================
+   * EUROPE MAP
+   * ==========================================================
+   */
+
+  const europeSvg =
+    d3.select("#europe-map");
+
+
+  const europeWidth = 1200;
+  const europeHeight = 700;
+
+
+  const europeProjection =
+    d3
+      .geoMercator()
+      .center([12, 54])
+      .scale(700)
+      .translate([
+        europeWidth / 2,
+        europeHeight / 2,
+      ]);
+
+
+  const europePath =
+    d3.geoPath(
+      europeProjection
+    );
+
+
+  /*
+   * Draw Europe using the same
+   * country data.
+   */
+
+  europeSvg
+    .append("path")
+    .datum(worldCountries)
+    .attr("d", europePath)
+    .attr("fill", "#E8E8E8")
+    .attr("stroke", "#FFFFFF")
+    .attr("stroke-width", 0.7);
+
+
+  /*
+   * Keep only European locations.
+   */
+
+  const europeLocations =
+    locations.filter(
+      (location) =>
+        location.lon >= -25 &&
+        location.lon <= 45 &&
+        location.lat >= 34 &&
+        location.lat <= 72
+    );
+
+
+  const europePoints =
+    europeLocations
+      .map((location) => ({
+        ...location,
+
+        mapPosition:
+          europeProjection([
+            location.lon,
+            location.lat,
+          ]),
+      }))
+      .filter(
+        (location) =>
+          location.mapPosition
+      );
+
+
+  const europePopup =
+    document.getElementById(
+      "europe-popup"
+    );
+
+
+  const europePopupInstitution =
+    document.getElementById(
+      "europe-popup-institution"
+    );
+
+
+  const europePopupPosition =
+    document.getElementById(
+      "europe-popup-position"
+    );
+
+
+  const europePopupDates =
+    document.getElementById(
+      "europe-popup-dates"
+    );
+
+
+  function showEuropePopup(
+    location
+  ) {
+
+    if (
+      !europePopup ||
+      !europePopupInstitution ||
+      !europePopupPosition ||
+      !europePopupDates ||
+      !location.mapPosition
+    ) {
+      return;
+    }
+
+
+    fillPopup(
+      location,
+      europePopupInstitution,
+      europePopupPosition,
+      europePopupDates
+    );
+
+
+    europePopup.classList.remove(
+      "hidden"
+    );
+
+
+    const svgElement =
+      document.getElementById(
+        "europe-map"
+      );
+
+
+    if (
+      !(svgElement instanceof SVGSVGElement)
+    ) {
+      return;
+    }
+
+
+    const rect =
+      svgElement.getBoundingClientRect();
+
+
+    const container =
+      svgElement.parentElement?.getBoundingClientRect();
+
+
+    if (!container) {
+      return;
+    }
+
+
+    const scaleX =
+      rect.width /
+      europeWidth;
+
+
+    const scaleY =
+      rect.height /
+      europeHeight;
+
+
+    let x =
+      location.mapPosition[0] *
+        scaleX +
+      15;
+
+
+    let y =
+      location.mapPosition[1] *
+        scaleY -
+      europePopup.offsetHeight -
+      15;
+
+
+    x = Math.max(
+      10,
+      Math.min(
+        x,
+        container.width -
+          europePopup.offsetWidth -
+          10
+      )
+    );
+
+
+    y = Math.max(
+      10,
+      Math.min(
+        y,
+        container.height -
+          europePopup.offsetHeight -
+          10
+      )
+    );
+
+
+    europePopup.style.left =
+      `${x}px`;
+
+    europePopup.style.top =
+      `${y}px`;
+
+  }
+
+
+  /*
+   * Draw Europe dots
+   */
+
+  europePoints.forEach(
+    (location) => {
+
+      const [x, y] =
+        location.mapPosition;
+
+
+      europeSvg
+        .append("circle")
+        .attr("cx", x)
+        .attr("cy", y)
+        .attr("r", 8)
+        .attr(
+          "fill",
+          categoryColors[
+            location.category
+          ] || "#D6AD4B"
+        )
+        .attr(
+          "stroke",
+          "#FFFFFF"
+        )
+        .attr(
+          "stroke-width",
+          2
+        )
+        .style(
+          "cursor",
+          "pointer"
+        )
+
+
+        /*
+         * Hover
+         */
+
+        .on(
+          "mouseenter",
+          function () {
+
+            d3.select(this)
+              .transition()
+              .duration(150)
+              .attr("r", 11);
+
+            showEuropePopup(
+              location
+            );
+
+          }
+        )
+
+
+        /*
+         * Leave
+         */
+
+        .on(
+          "mouseleave",
+          function () {
+
+            d3.select(this)
+              .transition()
+              .duration(150)
+              .attr("r", 8);
+
+          }
+        )
+
+
+        /*
+         * Click
+         */
+
+        .on(
+          "click",
+          function (event) {
+
+            event.stopPropagation();
+
+            showEuropePopup(
+              location
+            );
+
+          }
+        );
+
+    }
+  );
+
+
+  /*
+   * Click empty map area to close popup.
+   */
+
+  europeSvg.on(
+    "click",
+    () => {
+
+      europePopup?.classList.add(
+        "hidden"
+      );
+
+      europeSvg
+        .selectAll("circle")
+        .attr("r", 8);
+
+    }
+  );
+
+</script>

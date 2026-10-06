@@ -1,0 +1,24 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ScienceMap from "../components/ScienceMap.astro";
+---
+
+<BaseLayout
+  title="Scientific Experience"
+  sideBarActiveItemID="experience"
+>
+  <div class="mb-8">
+    <h1 class="text-6xl font-bold text-center">
+      Academic Map
+    </h1>
+  </div>
+
+  <p class="text-lg leading-relaxed mb-8 text-center">
+    World map highlighting universities and research institutions where I have studied, worked, or visited throughout my academic career. Hover over a location to reveal more information.
+  </p>
+  <p class="text-lg leading-relaxed mb-8 text-center">
+    See below for a close-up of Europe.
+  </p>
+
+  <ScienceMap />
+</BaseLayout>
